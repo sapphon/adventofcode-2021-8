@@ -1,8 +1,8 @@
 def setify(code):
-    return set([char for char in code])
+    return frozenset([char for char in code])
 
 
-def infer_number_by_comparing_to_1_and_4(mystery_code, one_code, four_code):
+def infer_digit_by_comparing_to_1_and_4(mystery_code, one_code, four_code):
     if len(mystery_code) == 5:
         if setify(mystery_code).issuperset(setify(one_code)):
             return 3
@@ -24,25 +24,23 @@ def get_number_codes(digit_codes):
     digit_codes.sort(key=len)
     for (digit, index) in [(1, 0), (7, 1), (4, 2), (8, 9)]:
         number_codes[digit] = digit_codes[index]
-    the_remaining_codes = [x for x in digit_codes if len(x) == 5 or len(x) == 6]
+    the_remaining_codes = [digit_codes[x] for x in range(3, 9)]
     for code in the_remaining_codes:
-        number_codes[infer_number_by_comparing_to_1_and_4(code, number_codes[1], number_codes[4])] = code
+        number_codes[infer_digit_by_comparing_to_1_and_4(code, number_codes[1], number_codes[4])] = code
     return number_codes
 
 
 def translate_output(output_codes, legend):
+    codes_to_digits = {setify(val): idx for idx, val in enumerate(legend)}
     output_digits = ''
     for code in output_codes:
-        for i in range(10):
-            if setify(legend[i]) == setify(code):
-                output_digits += str(i)
+        output_digits += str(codes_to_digits[setify(code)])
     return output_digits
 
 
 with open('input.txt') as incoming:
-    lines_of_input = incoming.readlines()
     sum_of_readouts = 0
-    for line in lines_of_input:
+    for line in incoming.readlines():
         (digit_string, output_string) = map(str.strip, line.split("|"))
         sum_of_readouts += int(translate_output(output_string.split(" "), get_number_codes(digit_string.split(" "))))
     print(sum_of_readouts)
