@@ -1,17 +1,21 @@
 def get_number_codes(line):
     number_codes = [''] * 10
+    def setify(code):
+        return set([char for char in code])
+
+
     def infer_number_from_code(mystery_code):
         if len(mystery_code) == 5:
-            if all(digit in [x for x in mystery_code] for digit in [x for x in number_codes[1]]):
+            if setify(mystery_code).issuperset(setify(number_codes[1])):
                 return 3
-            elif len(set([x for x in number_codes[4]]) - set([x for x in mystery_code])) == 2:
+            elif len(setify(number_codes[4]) - setify(mystery_code)) == 2:
                 return 2
             else:
                 return 5
         else:
-            if all(digit in [x for x in mystery_code] for digit in [x for x in number_codes[4]]):
+            if setify(mystery_code).issuperset(setify(number_codes[4])):
                 return 9
-            elif all(digit in [x for x in mystery_code] for digit in [x for x in number_codes[1]]):
+            elif setify(mystery_code).issuperset(setify(number_codes[1])):
                 return 0
             else:
                 return 6
