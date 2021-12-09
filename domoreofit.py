@@ -4,19 +4,9 @@ def setify(code):
 
 def get_digit_by_comparing_to_1_and_4(mystery_set, one_code, four_code):
     if len(mystery_set) == 5:
-        if mystery_set.issuperset(setify(one_code)):
-            return 3
-        elif len(setify(four_code) - mystery_set) == 2:
-            return 2
-        else:
-            return 5
+        return 3 if mystery_set.issuperset(setify(one_code)) else 2 if len(setify(four_code) - mystery_set) == 2 else 5
     else:
-        if mystery_set.issuperset(setify(four_code)):
-            return 9
-        elif mystery_set.issuperset(setify(one_code)):
-            return 0
-        else:
-            return 6
+        return 9 if mystery_set.issuperset(setify(four_code)) else 0 if mystery_set.issuperset(setify(one_code)) else 6
 
 
 def get_digit_codes(digit_codes):
