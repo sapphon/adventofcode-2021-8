@@ -21,11 +21,8 @@ def infer_number_by_comparing_to_1_and_4(mystery_code, one_code, four_code):
 
 def get_number_codes(digit_codes):
     number_codes = [''] * 10
-
-    number_codes[1] = next(x for x in digit_codes if len(x) == 2)
-    number_codes[7] = next(x for x in digit_codes if len(x) == 3)
-    number_codes[4] = next(x for x in digit_codes if len(x) == 4)
-    number_codes[8] = next(x for x in digit_codes if len(x) == 7)
+    for digit_and_length in [(1, 2), (7, 3), (4, 4), (8, 7)]:
+        number_codes[digit_and_length[0]] = next(x for x in digit_codes if len(x) == digit_and_length[1])
     the_remaining_codes = [x for x in digit_codes if len(x) == 5 or len(x) == 6]
     for code in the_remaining_codes:
         number_codes[infer_number_by_comparing_to_1_and_4(code, number_codes[1], number_codes[4])] = code
@@ -48,4 +45,3 @@ with open('input.txt') as incoming:
         (digit_string, output_string) = line.split("|")
         sum_of_readouts += int(translate_output(output_string.split(" "), get_number_codes(digit_string.split(" "))))
     print(sum_of_readouts)
-
