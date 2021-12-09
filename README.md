@@ -9,7 +9,7 @@ Solutions to the Day 8 challenges for Advent of Code 2021
     * len 4? digit is 4
     * len 5?
       * is a superset of the code for 1? digit is 3
-      * has a set difference of 2 with the code for 4? digit is 2
+      * has a set difference of size 2 with the code for 4? digit is 2
       * else digit is 5
     * len 6?
       * is a superset of the code for 4? digit is 9
