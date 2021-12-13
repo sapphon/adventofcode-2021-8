@@ -35,5 +35,6 @@ with open('input.txt') as incoming:
     sum_of_readouts = 0
     for line in incoming.readlines():
         (digit_string, output_string) = map(str.strip, line.split("|"))
-        sum_of_readouts += int(translate_output(map(sort_string, output_string.split(" ")), get_digit_codes(map(sort_string, digit_string.split(" ")))))
+        sum_of_readouts += int(translate_output(map(sort_string, output_string.split(" ")),
+                                                get_digit_codes(map(sort_string, digit_string.split(" ")))))
     print(sum_of_readouts)
